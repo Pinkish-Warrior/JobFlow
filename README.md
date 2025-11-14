@@ -6,11 +6,11 @@ This project is a small, practical application designed to track job application
 
 
 
-*   **Project Plan (`GEMINI.md`):** [Link to GEMINI.md](./docs/GEMINI.md)
+* **Project Plan (`GEMINI.md`):** [Link to GEMINI.md](./docs/GEMINI.md)
 
-*   **Workflow (`workflow.md`):** [Link to workflow.md](./docs/workflow.md)
+* **Workflow (`workflow.md`):** [Link to workflow.md](./docs/workflow.md)
 
-*   **Development Steps (`STEPS.md`):** [Link to STEPS.md](./docs/STEPS.md)
+* **Development Steps (`STEPS.md`):** [Link to STEPS.md](./docs/STEPS.md)
 
 ## Tech Stack
 
