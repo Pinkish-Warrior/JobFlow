@@ -4,9 +4,13 @@ This project is a small, practical application designed to track job application
 
 ## Project Documentation
 
-* **Project Plan (`GEMINI.md`):** [Link to GEMINI.md](./GEMINI.md)
-* **Workflow (`workflow.md`):** [Link to workflow.md](./WORKFLOW.md)
-* **Development Steps (`STEPS.md`):** [Link to STEPS.md](./STEPS.md)
+
+
+*   **Project Plan (`GEMINI.md`):** [Link to GEMINI.md](./docs/GEMINI.md)
+
+*   **Workflow (`workflow.md`):** [Link to workflow.md](./docs/workflow.md)
+
+*   **Development Steps (`STEPS.md`):** [Link to STEPS.md](./docs/STEPS.md)
 
 ## Tech Stack
 
