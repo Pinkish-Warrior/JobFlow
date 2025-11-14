@@ -6,7 +6,7 @@ This document outlines the steps to build the Job Application Tracker project us
 
 ## Phase 1: Project Foundation & Database Setup
 
-1\. **Initialize Project Structure:**
+1\. ✅ **Initialize Project Structure:**
 
     *   Create a root directory for the project.
     *   Inside the root, create `backend` and `frontend` subdirectories.
