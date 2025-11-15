@@ -31,9 +31,98 @@ This document outlines the steps to build the Job Application Tracker project us
     *   Execute the `sample_data.sql` script.
 
 5\. **Secure Database with Row Level Security (RLS):**
-    *   Enable RLS on all tables to enforce a "deny by default" policy.
-    *   Add a `user_id` column (UUID) to tables that contain user-specific data (e.g., `Applications`, `Interviews`). This column will reference `auth.users(id)`.
-    *   Create RLS policies to grant `SELECT`, `INSERT`, `UPDATE`, and `DELETE` permissions based on the authenticated user's ID (`auth.uid()`).
+
+    *   **5.1. Enable RLS on Tables:**
+
+        *   Run the following SQL commands in your Supabase SQL Editor (or equivalent PostgreSQL client):
+
+            ```sql
+
+            ALTER TABLE public.Companies ENABLE ROW LEVEL SECURITY;
+
+            ALTER TABLE public.JobPositions ENABLE ROW LEVEL SECURITY;
+
+            ALTER TABLE public.Applications ENABLE ROW LEVEL SECURITY;
+
+            ALTER TABLE public.Interviews ENABLE ROW LEVEL SECURITY;
+
+            ```
+
+        *   *Explanation:* This enforces a "deny by default" security model. After this, no data can be accessed until policies are created.
+
+    *   **5.2. Add `user_id` Column to User-Specific Tables:**
+
+        *   To associate data with authenticated users, add a `user_id` column to tables that will store user-specific data. This column should reference `auth.users(id)`.
+
+        *   Example for `Applications` table:
+
+            ```sql
+
+            ALTER TABLE public.Applications
+
+            ADD COLUMN user_id UUID REFERENCES auth.users(id);
+
+            ```
+
+        *   *Note:* You may need to add `user_id` to other tables (e.g., `Companies`, `JobPositions`, `Interviews`) depending on whether they are owned by individual users or are globally accessible.
+
+    *   **5.3. Create RLS Policies:**
+
+        *   Define policies to grant specific access based on the authenticated user (`auth.uid()`).
+
+        *   **Example Policies for `Applications` (assuming `user_id` column exists):**
+
+            *   **SELECT Policy (Users can view their own applications):**
+
+                ```sql
+
+                CREATE POLICY "Users can view their own applications"
+
+                ON public.Applications FOR SELECT
+
+                USING (auth.uid() = user_id);
+
+                ```
+
+            *   **INSERT Policy (Users can insert their own applications):**
+
+                ```sql
+
+                CREATE POLICY "Users can insert their own applications"
+
+                ON public.Applications FOR INSERT
+
+                WITH CHECK (auth.uid() = user_id);
+
+                ```
+
+            *   **UPDATE Policy (Users can update their own applications):**
+
+                ```sql
+
+                CREATE POLICY "Users can update their own applications"
+
+                ON public.Applications FOR UPDATE
+
+                USING (auth.uid() = user_id)
+
+                WITH CHECK (auth.uid() = user_id);
+
+                ```
+
+            *   **DELETE Policy (Users can delete their own applications):**
+
+                ```sql
+
+                CREATE POLICY "Users can delete their own applications"
+
+                ON public.Applications FOR DELETE
+
+                USING (auth.uid() = user_id);
+
+                ```
+
+        *   *Note:* You will need to create similar policies for other tables as appropriate for your application's access control requirements.
 
 ---
 
